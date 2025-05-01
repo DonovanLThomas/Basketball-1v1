@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1v1 Basketball Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        input, button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Challenge Me to a 1v1</h1>
+    <form method="POST" action = "/signup">
+        <label for="name">Name (optional):</label>
+        <input type="text" name="name" id="name">
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" name="phone" id="phone" required pattern="[0-9]{10}"/>
+
+        <button type="Submit">Submit</button>
+    </form>
+
+    <script>
+        function showThankYou(){
+            alert("Thanks for siogning up! You will get a Text Message soon!")
+        }
+    </script>
+
+</body>
+</html>
