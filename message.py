@@ -6,10 +6,12 @@ from datetime import datetime, timedelta
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -121,9 +123,6 @@ def sms_reply():
     resp.message(reply)
     return str(resp)
 
-@app.route("/", methods=["GET"])
-def index():
-    return render_template("signup.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
