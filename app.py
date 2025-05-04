@@ -70,7 +70,7 @@ chat_history = []
 last_proposed_day = None
 last_proposed_times = []
 
-Twilio_phone_number = "+18314984456"
+Twilio_phone_number = os.getenv("TWILO_PHOME")
 Account_SID = os.getenv("TWILIO_ACCOUNT_SID")
 Auth_Token = os.getenv("TWILIO_AUTH_TOKEN")
 
