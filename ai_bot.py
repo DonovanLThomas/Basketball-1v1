@@ -1,12 +1,12 @@
-from flask import Flask, request, render_templete
+from flask import Flask, request, render_template
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 from flask_cors import CORS
 import os
-from dotenv import load_detenv
+from dotenv import load_dotenv
 import google.generativeai as genai
 
-load_detenv
+load_dotenv
 
 app = Flask(__name__)
 CORS(app)
