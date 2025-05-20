@@ -17,7 +17,7 @@ Auth_Token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(Account_SID, Auth_Token)
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel(model_name="models/gemini-pro")
 
 signups = []
 
@@ -51,7 +51,7 @@ def sms_reply():
         Help the user pick a time based on their message: "{incoming_msg}".
         Respond conversationally and ask follow-up questions if needed."""
         
-        response = model.generate_content(prompt)
+        response = model.generate_content([prompt])
         reply_text = response.text.strip()
 
     except Exception as e:
