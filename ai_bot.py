@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -55,6 +55,7 @@ def sms_reply():
         reply_text = response.text.strip()
 
     except Exception as e:
+        print("Gemini API Error:", e)
         reply_text = "Sorry, I'm having trouble responding right now."
 
     # Send response back to user
