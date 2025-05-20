@@ -17,7 +17,7 @@ Auth_Token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(Account_SID, Auth_Token)
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel(model_name="models/gemini-pro")
+model = genai.GenerativeModel("gemini-pro")
 
 signups = []
 
