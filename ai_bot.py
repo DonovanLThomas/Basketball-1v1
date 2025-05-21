@@ -20,6 +20,23 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 signups = []
+my_free_times = {
+    "modnay": ["6pm", "7pm"],
+    "tuesday": ["10am", "11am", "2pm", "3pm", "4pm"],
+    "wednesday": ["6pm", "7pm"],
+    "thursday": ["10am", "11am", "2pm", "3pm", "4pm"],
+    "friday": ["11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"],
+    "saturday": ["10am", "11am", "12am", "1pm", "2pm", "3pm", "4pm"],
+    "sunday": ["10am", "11am", "12am", "1pm", "2pm", "3pm", "4pm"]
+}
+
+def format_schedule_for_prompt(schedule_dict):
+    lines = []
+    for day, times in schedule_dict.items():
+        line = f"{day.capitalize()}: {', '.join(times)}"
+        lines.append(line)
+    return "\n".join(lines)
+
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -46,10 +63,25 @@ def sms_reply():
     from_number = request.form.get("From")
 
     try:
+        schedule_text = format_schedule_for_prompt(my_free_times)
         # Ask Gemini for a reply
-        prompt = f"""You are a basketball scheduling assistant. 
+        prompt = f"""You are a basketball scheduling assistant.
+
+        Here is my available times:
+        {schedule_text}
+
         Help the user pick a time based on their message: "{incoming_msg}".
-        Respond conversationally and ask follow-up questions if needed."""
+
+        List my times so they can match their schedule.
+
+        Help them decide on a time that works for them and me. If they ask a vauge question ask a clarifying question. Keep your messages not pretty consise.
+
+        If a question if off topic redirect them back towards the goal.
+       
+        Respond conversationally and ask follow-up questions if needed.
+        
+        Your final goal is to confirm a set time for the 1v1 basketball match.
+        """
         
         response = model.generate_content([prompt])
         reply_text = response.text.strip()
